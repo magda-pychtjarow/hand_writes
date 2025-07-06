@@ -1,9 +1,10 @@
 def get_key_from_file(file_name):
     with open(file_name, 'r') as file:
-            line = file.readline()
+        line = file.readline()
     return line.strip()
-api_key = get_key_from_file("mw_key.txt")
 
+
+api_key = get_key_from_file("mw_key.txt")
 
 import requests
 
@@ -26,7 +27,6 @@ def get_definition(word, api_key):
         return definitions[0]
     else:
         return [f"No definitions found. Suggestions: {data}"]
-
 
 
 API_KEY = api_key

@@ -2,12 +2,14 @@ import requests
 
 ANKI_CONNECT_URL = "http://localhost:8765"
 
+
 def invoke(action, params=None):
     return requests.post(ANKI_CONNECT_URL, json={
         "action": action,
         "version": 6,
         "params": params or {}
     }).json()
+
 
 # 1. Create the deck
 deck_name = "We Need to Talk about Kevin"
