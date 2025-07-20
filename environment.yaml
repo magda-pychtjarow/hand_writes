@@ -1,0 +1,13 @@
+name: ocr
+channels:
+  - conda-forge
+  - defaults
+  - pytorch
+dependencies:
+  - python=3.10
+  - pip
+  - matplotlib
+  - pillow=11.2.1  # PIL
+  - transformers
+  - pytorch
+  - py-opencv=4.11.0

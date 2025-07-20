@@ -1,6 +1,9 @@
 import cv2
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
+#import matplotlib
 from PIL import Image
+import numpy as np
+import easyocr
 
 
 def preprocess_text_image(image, debug=False):
@@ -128,27 +131,27 @@ def preprocess_text_image(image, debug=False):
 
     # Debug visualization
     if debug:
-        fig, axes = plt.subplots(2, 4, figsize=(16, 8))
-        axes = axes.ravel()
-
-        images = [
-            (original_gray, 'Original'),
-            (denoised, 'Denoised'),
-            (enhanced, 'CLAHE Enhanced'),
-            (deskewed, 'Deskewed'),
-            (otsu_binary, 'Otsu Binary'),
-            (adaptive_gaussian, 'Adaptive Gaussian'),
-            (combined_binary, 'Combined Binary'),
-            (final_binary, 'Final Result')
-        ]
-
-        for i, (img, title) in enumerate(images):
-            axes[i].imshow(img, cmap='gray')
-            axes[i].set_title(title)
-            axes[i].axis('off')
-
-        plt.tight_layout()
-        plt.show()
+        # fig, axes = plt.subplots(2, 4, figsize=(16, 8))
+        # axes = axes.ravel()
+        #
+        # images = [
+        #     (original_gray, 'Original'),
+        #     (denoised, 'Denoised'),
+        #     (enhanced, 'CLAHE Enhanced'),
+        #     (deskewed, 'Deskewed'),
+        #     (otsu_binary, 'Otsu Binary'),
+        #     (adaptive_gaussian, 'Adaptive Gaussian'),
+        #     (combined_binary, 'Combined Binary'),
+        #     (final_binary, 'Final Result')
+        # ]
+        #
+        # for i, (img, title) in enumerate(images):
+        #     axes[i].imshow(img, cmap='gray')
+        #     axes[i].set_title(title)
+        #     axes[i].axis('off')
+        #
+        # plt.tight_layout()
+        # plt.show()
 
         print(f"Detected skew angle: {skew_angle:.2f} degrees")
         print(f"Minimum component size threshold: {min_component_size} pixels")
@@ -174,26 +177,24 @@ def preprocess_for_ocr(image, line_height=127, target_height=None, debug=False):
     processed = preprocess_text_image(image, debug)
     processed_array = np.array(processed)
 
-    if debug:
-        print(f"Final image size: {processed_array.shape}")
-        plt.figure(figsize=(12, 6))
-        plt.subplot(1, 2, 1)
-        plt.imshow(np.array(image), cmap='gray')
-        plt.title('Original')
-        plt.axis('off')
-
-        plt.subplot(1, 2, 2)
-        plt.imshow(processed_array, cmap='gray')
-        plt.title('Preprocessed for OCR')
-        plt.axis('off')
-        plt.show()
+    # if debug:
+    #     print(f"Final image size: {processed_array.shape}")
+    #     plt.figure(figsize=(12, 6))
+    #     plt.subplot(1, 2, 1)
+    #     plt.imshow(np.array(image), cmap='gray')
+    #     plt.title('Original')
+    #     plt.axis('off')
+    #
+    #     plt.subplot(1, 2, 2)
+    #     plt.imshow(processed_array, cmap='gray')
+    #     plt.title('Preprocessed for OCR')
+    #     plt.axis('off')
+    #     plt.show()
 
     return processed_array
 
 
 def read_with_easyocr(image_path):
-    import cv2
-    import easyocr
     # Initialize EasyOCR with English
     reader = easyocr.Reader(['en'])
 
